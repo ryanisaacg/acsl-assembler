@@ -2,9 +2,9 @@ CFLAGS = -Wall -Wextra
 
 all: asm vm translator
 
-asm: parser/parser.l parser/parser.y
-	flex -olex.c parser/parser.l
-	bison -d -byacc parser/parser.y -v
+asm: assembler/parser.l assembler/parser.y
+	flex -olex.c assembler/parser.l
+	bison -d -byacc assembler/parser.y -v
 	gcc lex.c yacc.tab.c -o asm
 
 vm: machine/machine.c
