@@ -24,6 +24,16 @@ typedef unsigned char byte;
 byte commands[4096][3];
 byte variables[27];
 byte box;
+size_t num_commands;
+
+size_t branch(byte label) {
+	for(size_t i = 0; i < num_commands; i++) {
+		if(commands[i][0] == LABEL && commands[i][1] == label)
+			return i;
+	}
+	fprintf(stderr, "Jump failed to find label.");
+	exit(-1);
+}
 
 size_t execute_command(size_t i) {
 	byte command[3];
@@ -50,17 +60,34 @@ size_t execute_command(size_t i) {
 		case ADD:	
 			box += variables[argument = 'A'];
 			break;
-		case ADD:	
-			box += variables[argument = 'A'];
+		case SUBTRACT:	
+			box -= variables[argument = 'A'];
 			break;
-		case ADD:	
-			box += variables[argument = 'A'];
+		case MULTIPLY:	
+			box *= variables[argument = 'A'];
 			break;
-		case ADD:	
-			box += variables[argument = 'A'];
+		case DIVIDE:	
+			box /= variables[argument = 'A'];
+			break;
+		case BRANCH_LESS:
+			if(box < 0)
+				return branch(argument);
+			break;
+		case BRANCH_EQUAL:
+			if(box == 0)
+				return branch(argument);
+			break;
+		case BRANCH_GREATER:
+			if(box > 0)
+				return branch(argument);
+			break;
+		case BRANCH_UNCONDITIONALLY:
+			return branch(argument);
+		case PRINT:
+			printf("%d\n", box);
 			break;
 	}
-	return i;
+	return i + 1;
 }
 
 int main(int argc, char *argv[]) {
@@ -75,7 +102,8 @@ int main(int argc, char *argv[]) {
 			commands[command_index][2] = fgetc(binary);
 			command_index++;
 		}
-		for(size_t i = 0; i < command_index; i++) {
+		num_commands = command_index;
+		for(size_t i = 0; i < command_index;) {
 			i = execute_command(i);
 		}
 	}
