@@ -2,4 +2,5 @@ vm
 translator
 assembler
 lex.c
-yacc.tab.c
+yacc.tab.*
+yacc.output
