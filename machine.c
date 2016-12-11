@@ -28,7 +28,8 @@ byte box;
 size_t num_commands;
 
 size_t branch(byte label) {
-	for(size_t i = 0; i < num_commands; i++) {
+	size_t i;
+	for(i = 0; i < num_commands; i++) {
 		if(commands[i][0] == LABEL && commands[i][1] == label)
 			return i;
 	}
@@ -107,7 +108,8 @@ int main(int argc, char *argv[]) {
 			command_index++;
 		}
 		num_commands = command_index;
-		for(size_t i = 0; i < command_index;) {
+		size_t i = 0;
+		while(i < command_index) {
 			i = execute_command(i);
 		}
 	}
