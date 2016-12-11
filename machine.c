@@ -51,7 +51,7 @@ size_t execute_command(size_t i) {
 			variables[argument - 'A'] = value;
 			break;
 		case LOAD:
-			box = variables[argument = 'A'];
+			box = variables[argument - 'A'];
 			break;
 		case STORE:
 			variables[argument - 'A'] = box;
