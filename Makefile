@@ -1,11 +1,11 @@
 CFLAGS = -Wall -Wextra
 
-all: assembler vm translator
+all: asm vm translator
 
-assembler: parser/parser.l parser/parser.y
+asm: parser/parser.l parser/parser.y
 	flex -olex.c parser/parser.l
 	bison -d -byacc parser/parser.y -v
-	gcc lex.c yacc.tab.c $(CFLAGS) -o assembler
+	gcc lex.c yacc.tab.c -o asm
 
 vm: machine/machine.c
 	gcc machine/machine.c $(CFLAGS) -o vm
