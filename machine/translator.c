@@ -8,12 +8,14 @@ int main(int argc, char *argv[]) {
 		FILE* input  = fopen(argv[1], "r");
 		FILE* output = fopen(argv[2], "w");
 		char byte[3];
+		byte[2] == '\0';
 		while(!feof(input)) {
-			fgets(byte, 3, input);
-			if(byte[0] == '\n' || byte[0] == '\r')
-				continue;
-			if(byte[1] == '\n' || byte[0] == '\r')
-				byte[1] = '\0';
+			int byte1 = fgetc(input);
+			while(byte1 == ' ' || byte1 == '\n' || byte1 == '\r') {
+				byte1 = fgetc(input);
+			}
+			byte[0] = byte1;
+			byte[1] = fgetc(input);
 			int value = (int)strtol(byte, NULL, 16);
 			fputc(value, output);
 		}
