@@ -19,6 +19,7 @@ Command Format:
 #define BRANCH_GREATER 10
 #define BRANCH_UNCONDITIONALLY 11
 #define PRINT 12
+#define END 13
 
 typedef unsigned char byte;
 byte commands[4096][3];
@@ -85,6 +86,9 @@ size_t execute_command(size_t i) {
 			return branch(argument);
 		case PRINT:
 			printf("%d\n", box);
+			break;
+		case END:
+			exit(0);
 			break;
 	}
 	return i + 1;
