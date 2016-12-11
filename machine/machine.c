@@ -23,8 +23,8 @@ Command Format:
 
 typedef unsigned char byte;
 byte commands[4096][3];
-byte variables[27];
-byte box;
+int variables[27];
+int box;
 size_t num_commands;
 
 size_t branch(byte label) {
