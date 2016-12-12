@@ -60,16 +60,16 @@ size_t execute_command(size_t i) {
 		case LABEL:
 			break;
 		case ADD:	
-			box += variables[argument = 'A'];
+			box += variables[argument - 'A'];
 			break;
 		case SUBTRACT:	
-			box -= variables[argument = 'A'];
+			box -= variables[argument - 'A'];
 			break;
 		case MULTIPLY:	
-			box *= variables[argument = 'A'];
+			box *= variables[argument - 'A'];
 			break;
 		case DIVIDE:	
-			box /= variables[argument = 'A'];
+			box /= variables[argument - 'A'];
 			break;
 		case BRANCH_LESS:
 			if(box < 0)
