@@ -1,6 +1,9 @@
 vm
 translator
 asm
+vm.exe
+translator.exe
+asm.exe
 lex.c
 yacc.tab.*
 yacc.output
