@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 		FILE* input  = fopen(argv[1], "r");
 		FILE* output = fopen(argv[2], "w");
 		char byte[3];
-		byte[2] == '\0';
+		byte[2] = '\0';
 		while(!feof(input)) {
 			int byte1 = fgetc(input);
 			while(byte1 == ' ' || byte1 == '\n' || byte1 == '\r') {
