@@ -12,8 +12,8 @@
 
 [A-Za-z]+ { yylval.string = strdup(yytext); return STRING; }
 [0-9]+ { yylval.number = atoi(yytext); return NUMBER; }
-[ \t\r\n]+ {}
-. { return yytext[0]; }
+[ \t\r]+ {}
+[\n]|. { return yytext[0]; }
 
 %%
 void yyerror(char *message) {

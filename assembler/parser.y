@@ -45,32 +45,32 @@ int getcommand(char *command) {
 
 %token <sval> STRING
 %token <number> NUMBER
- 
+
 %%
 file:
 	command
 	| file command
 
 command:
-	STRING ';' {
+	STRING '\n' {
 		char *command = $<string>1;
 		int number = getcommand(command);
 		fputc(number, output);
 		fputc(0, output);
 		fputc(0, output);
-	} | STRING STRING ';' {
+	} | STRING STRING '\n' {
 		char *command = $<string>1;
 		char *argument = $<string>2;
 		fputc(getcommand(command), output);
 		fputc(argument[0], output);
 		fputc(0, output);
-	} | STRING '=' NUMBER ';' {
+	} | STRING '=' NUMBER '\n' {
 		char *command = $<string>1;
 		int argument = $<number>3;
 		fputc(getcommand(command), output);
 		fputc('=', output);
 		fputc(argument, output);
-	} | STRING STRING NUMBER ';' {
+	} | STRING STRING NUMBER '\n' {
 		char *command = $<string>1;
 		char *argument = $<string>2;
 		int value = $<number>3;
