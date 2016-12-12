@@ -6,6 +6,8 @@
 #include <string.h>
 %}
 
+%option yylineno
+
 %%
 
 [A-Za-z]+ { yylval.string = strdup(yytext); return STRING; }
@@ -15,7 +17,7 @@
 
 %%
 void yyerror(char *message) {
-	fprintf(stderr, "%s\n", message);
+	fprintf(stderr, "%s at line %d\n", message, yylineno);
 }
 int yywrap(void) {
 	return 1;

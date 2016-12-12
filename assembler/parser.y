@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "yacc.tab.h"
 
 FILE* output;
 extern FILE* yyin;
@@ -46,30 +47,30 @@ int getcommand(char *command) {
 %token <number> NUMBER
  
 %%
+file:
+	command
+	| file command
 
 command:
-STRING ';' {
-	char *command = $<string>1;
-	int number = getcommand(command);
-	fputc(number, output);
-	fputc(0, output);
-	fputc(0, output);
-}
-| STRING STRING ';' {
-	char *command = $<string>1;
-	char *argument = $<string>2;
-	fputc(getcommand(command), output);
-	fputc(argument[0], output);
-	fputc(0, output);
-}
-| STRING '=' NUMBER ';' {
-	char *command = $<string>1;
-	int argument = $<number>3;
-	fputc(getcommand(command), output);
-	fputc('=', output);
-	fputc(argument, output);
-	fputc(0, output);
-}
+	STRING ';' {
+		char *command = $<string>1;
+		int number = getcommand(command);
+		fputc(number, output);
+		fputc(0, output);
+		fputc(0, output);
+	} | STRING STRING ';' {
+		char *command = $<string>1;
+		char *argument = $<string>2;
+		fputc(getcommand(command), output);
+		fputc(argument[0], output);
+		fputc(0, output);
+	} | STRING '=' NUMBER ';' {
+		char *command = $<string>1;
+		int argument = $<number>3;
+		fputc(getcommand(command), output);
+		fputc('=', output);
+		fputc(argument, output);
+	}
 %%
 
 int main(int argc, char *argv[]) {
