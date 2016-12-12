@@ -20,7 +20,7 @@ int getcommand(char *command) {
 		return 4;
 	} else if(strcmp(command, "SUB") == 0) {
 		return 5;
-	} else if(strcmp(command, "MUL") == 0) {
+	} else if(strcmp(command, "MULT") == 0) {
 		return 6;
 	} else if(strcmp(command, "DIV") == 0) {
 		return 7;
@@ -70,6 +70,13 @@ command:
 		fputc(getcommand(command), output);
 		fputc('=', output);
 		fputc(argument, output);
+	} | STRING STRING NUMBER ';' {
+		char *command = $<string>1;
+		char *argument = $<string>2;
+		int value = $<number>3;
+		fputc(getcommand(command), output);
+		fputc(argument[0], output);
+		fputc(value, output);
 	}
 %%
 
