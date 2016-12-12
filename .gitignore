@@ -8,4 +8,4 @@ lex.c
 yacc.tab.*
 yacc.output
 bin
-
+assembled
