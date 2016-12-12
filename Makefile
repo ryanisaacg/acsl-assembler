@@ -5,7 +5,7 @@ all: asm vm translator
 asm: assembler/parser.l assembler/parser.y
 	flex -olex.c assembler/parser.l
 	bison -d -byacc assembler/parser.y -v
-	gcc lex.c yacc.tab.c -o asm
+	gcc lex.c yacc.tab.c -Wno-implicit-function-declaration -o asm
 
 vm: machine/machine.c
 	gcc machine/machine.c $(CFLAGS) -o vm
